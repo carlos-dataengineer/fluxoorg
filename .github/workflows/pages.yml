@@ -31,7 +31,7 @@ jobs:
           mkdir -p site
           cp app/index.html site/index.html
           cp docs/images/social.png site/social.png 2>/dev/null || true
-      - uses: actions/configure-pages@v5
+      - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
