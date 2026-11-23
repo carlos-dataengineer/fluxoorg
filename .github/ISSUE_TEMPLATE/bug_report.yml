@@ -1,0 +1,49 @@
+name: Relatar um erro
+description: Algo não funciona como deveria
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por avisar. **Não cole transcrições reais**: troque nomes, empresas e números por dados fictícios antes de enviar.
+  - type: textarea
+    id: oque
+    attributes:
+      label: O que aconteceu
+      description: Descreva o erro e o que você esperava ver.
+    validations:
+      required: true
+  - type: textarea
+    id: passos
+    attributes:
+      label: Como reproduzir
+      placeholder: |
+        1. Abra o Fluxoorg
+        2. Cole a transcrição abaixo (fictícia)
+        3. Clique em…
+    validations:
+      required: true
+  - type: textarea
+    id: transcricao
+    attributes:
+      label: Trecho de transcrição que reproduz o problema (fictício)
+      render: text
+  - type: dropdown
+    id: onde
+    attributes:
+      label: Onde você usa
+      multiple: true
+      options:
+        - Arquivo aberto no navegador
+        - Demo no GitHub Pages
+        - Claude Code (skill)
+        - Codex (skill)
+        - Modo IA (API ou prompt copiado)
+        - Instalador
+    validations:
+      required: true
+  - type: input
+    id: ambiente
+    attributes:
+      label: Versão, sistema e navegador
+      placeholder: Fluxoorg 1.0.0, Windows 11, Chrome 131

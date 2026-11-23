@@ -1,0 +1,16 @@
+Marina: Pessoal, o objetivo hoje é mapear como um lead vira cliente ativo na Orbita. Reunião de 12/03/2026.
+Rafael: Primeiro o lead entra pelo site ou pelo WhatsApp e cai no HubSpot. O problema é que os leads de eventos ainda chegam por planilha, na mão.
+Marina: Depois o SDR qualifica o lead por telefone e registra o resultado no HubSpot.
+Rafael: Se a empresa tiver mais de 50 usuários, o SDR encaminha para um executivo de contas. Se não, segue para o time de inside sales.
+Bruno: E quem monta a proposta?
+Rafael: O time de pricing calcula o desconto no HubSpot e a proposta sai em PDF. Em seguida o executivo envia a proposta por e-mail para o cliente.
+Marina: Quando o cliente assina, o financeiro cadastra o contrato no ERP e gera a primeira fatura no Stripe.
+Bruno: E o onboarding?
+Marina: Agora sobre o onboarding. O time de sucesso do cliente agenda o kickoff em até cinco dias e cria o workspace do cliente.
+Rafael: A conta só conta como ativa depois do primeiro login, nunca na data da assinatura. MQL significa lead qualificado pelo marketing. ARR é a receita recorrente anual do contrato.
+Rafael: Hoje a gente não tem vínculo no sistema entre o executivo e o contrato no ERP, então a comissão é calculada manualmente e dá retrabalho.
+Marina: A gente queria ver no painel a conversão por etapa e o tempo médio até o primeiro login.
+Marina: Ficou combinado que vamos criar um ID único de cliente e usar esse código como chave entre HubSpot e ERP.
+Bruno: Ótimo. Eu vou enviar o dicionário de campos do HubSpot até sexta.
+Rafael: Preciso confirmar com o jurídico o prazo de cancelamento e te aviso na terça.
+Marina: Decidimos também que o relatório de ARR vai sair direto do Databricks, sem planilha.

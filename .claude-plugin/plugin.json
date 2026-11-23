@@ -1,0 +1,10 @@
+{
+  "name": "fluxoorg",
+  "version": "1.0.0",
+  "description": "Transforma a transcrição de uma reunião em um fluxo visual editável: etapas, decisões, sistemas, dores, pendências e termos, num único HTML offline.",
+  "author": { "name": "carlos-dataengineer", "url": "https://github.com/carlos-dataengineer" },
+  "homepage": "https://github.com/carlos-dataengineer/fluxoorg",
+  "repository": "https://github.com/carlos-dataengineer/fluxoorg",
+  "license": "MIT",
+  "keywords": ["reuniao", "transcricao", "fluxograma", "processo", "ata", "teams", "zoom", "meet", "skill"]
+}

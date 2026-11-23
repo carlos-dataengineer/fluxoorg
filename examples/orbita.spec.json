@@ -1,0 +1,84 @@
+{
+  "titulo": "Exemplo · Orbita, do lead ao cliente ativo",
+  "resumo": "Lead vira cliente ativo só no primeiro login",
+  "data": "12/03/2026",
+  "participantes": ["Marina (operações de receita)", "Rafael (vendas)", "Bruno (dados)"],
+  "fluxos": [
+    {
+      "titulo": "Vendas · do lead à assinatura",
+      "etapas": [
+        {"id": "s1", "texto": "Lead entra pelo site ou WhatsApp", "tipo": "etapa", "raia": "Marketing"},
+        {"id": "s2", "texto": "Lead cai no HubSpot", "tipo": "sistema", "raia": "HubSpot"},
+        {"id": "s3", "texto": "SDR qualifica por telefone e registra o resultado", "tipo": "etapa", "raia": "SDR"},
+        {"id": "s4", "texto": "Empresa tem mais de 50 usuários?", "tipo": "condicao", "raia": "SDR"},
+        {"id": "s5", "texto": "Executivo de contas assume a negociação", "tipo": "etapa", "raia": "Vendas"},
+        {"id": "s6", "texto": "Inside sales assume a negociação", "tipo": "etapa", "raia": "Vendas"},
+        {"id": "s7", "texto": "Pricing calcula o desconto no HubSpot", "tipo": "sistema", "raia": "Pricing"},
+        {"id": "s8", "texto": "Proposta em PDF enviada por e-mail", "tipo": "etapa", "raia": "Vendas"}
+      ],
+      "ligacoes": [
+        {"de": "s1", "para": "s2"},
+        {"de": "s2", "para": "s3"},
+        {"de": "s3", "para": "s4"},
+        {"de": "s4", "para": "s5", "rotulo": "sim"},
+        {"de": "s4", "para": "s6", "rotulo": "não"},
+        {"de": "s5", "para": "s7"},
+        {"de": "s6", "para": "s7"},
+        {"de": "s7", "para": "s8"}
+      ]
+    },
+    {
+      "titulo": "Ativação · da assinatura ao primeiro login",
+      "etapas": [
+        {"id": "a1", "texto": "Cliente assina a proposta", "tipo": "etapa", "raia": "Cliente"},
+        {"id": "a2", "texto": "Financeiro cadastra o contrato no ERP", "tipo": "sistema", "raia": "Financeiro"},
+        {"id": "a3", "texto": "Primeira fatura gerada no Stripe", "tipo": "sistema", "raia": "Financeiro"},
+        {"id": "a4", "texto": "Sucesso do cliente agenda o kickoff em até 5 dias", "tipo": "etapa", "raia": "Sucesso do cliente"},
+        {"id": "a5", "texto": "Workspace do cliente criado", "tipo": "etapa", "raia": "Sucesso do cliente"},
+        {"id": "a6", "texto": "Cliente fez o primeiro login?", "tipo": "condicao", "raia": "Cliente"},
+        {"id": "a7", "texto": "Conta passa a contar como ativa", "tipo": "etapa", "raia": "Dados"},
+        {"id": "a8", "texto": "Sucesso do cliente faz follow-up", "tipo": "etapa", "raia": "Sucesso do cliente"}
+      ],
+      "ligacoes": [
+        {"de": "a1", "para": "a2"},
+        {"de": "a2", "para": "a3"},
+        {"de": "a3", "para": "a4"},
+        {"de": "a4", "para": "a5"},
+        {"de": "a5", "para": "a6"},
+        {"de": "a6", "para": "a7", "rotulo": "sim"},
+        {"de": "a6", "para": "a8", "rotulo": "não"}
+      ]
+    }
+  ],
+  "quadros": [
+    {"titulo": "Dores e lacunas", "tipo": "dor", "itens": [
+      "Leads de eventos chegam por planilha, digitados à mão",
+      "Sem vínculo no sistema entre executivo e contrato no ERP",
+      "Comissão calculada manualmente, com retrabalho"
+    ]},
+    {"titulo": "Decisões", "tipo": "decisao", "itens": [
+      "Criar um ID único de cliente como chave entre HubSpot e ERP",
+      "Relatório de ARR sai direto do Databricks, sem planilha"
+    ]},
+    {"titulo": "Pendências e próximos passos", "tipo": "pendencia", "itens": [
+      "Bruno: enviar o dicionário de campos do HubSpot (sexta)",
+      "Rafael: confirmar com o jurídico o prazo de cancelamento (terça)"
+    ]},
+    {"titulo": "Regras e números citados", "tipo": "regra", "itens": [
+      "Mais de 50 usuários vai para executivo de contas",
+      "Kickoff em até 5 dias após a assinatura",
+      "Conta ativa só depois do primeiro login, nunca na data da assinatura"
+    ]},
+    {"titulo": "O que precisam ver", "tipo": "necessidade", "itens": [
+      "Conversão por etapa no painel",
+      "Tempo médio até o primeiro login"
+    ]}
+  ],
+  "tabelas": [
+    {"titulo": "Termos citados", "colunas": ["Termo", "Significado"], "linhas": [
+      ["MQL", "Lead qualificado pelo marketing"],
+      ["SDR", "Pré-vendedor que qualifica o lead"],
+      ["ARR", "Receita recorrente anual do contrato"]
+    ]}
+  ]
+}

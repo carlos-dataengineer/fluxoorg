@@ -1,0 +1,14 @@
+{
+  "name": "fluxoorg",
+  "owner": { "name": "carlos-dataengineer", "url": "https://github.com/carlos-dataengineer" },
+  "metadata": { "description": "Marketplace do Fluxoorg: transcrição de reunião vira fluxo." },
+  "plugins": [
+    {
+      "name": "fluxoorg",
+      "source": "./",
+      "description": "Transforma a transcrição de uma reunião em um fluxo visual editável, num único HTML offline.",
+      "version": "1.0.0",
+      "license": "MIT"
+    }
+  ]
+}

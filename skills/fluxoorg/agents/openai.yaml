@@ -1,0 +1,6 @@
+interface:
+  display_name: "Fluxoorg"
+  short_description: "Transforma a transcrição de uma reunião em um fluxo visual editável"
+  default_prompt: "Use $fluxoorg para transformar a transcrição examples/reuniao-orbita.txt em um fluxo."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "Se usar o Fluxoorg em um trabalho, cite assim."
+title: "Fluxoorg: transcrição de reunião vira fluxo"
+type: software
+authors:
+  - alias: carlos-dataengineer
+repository-code: "https://github.com/carlos-dataengineer/fluxoorg"
+url: "https://carlos-dataengineer.github.io/fluxoorg/"
+license: MIT
+version: 1.0.0
+date-released: "2026-11-23"
+keywords:
+  - reunião
+  - transcrição
+  - fluxograma
+  - mapeamento de processos

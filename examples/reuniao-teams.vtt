@@ -1,0 +1,25 @@
+WEBVTT
+
+00:00:01.000 --> 00:00:06.000
+<v Júlia Prado>Bom dia. Hoje a gente fecha o fluxo de devolução da loja Aurora.</v>
+
+00:00:06.500 --> 00:00:14.000
+<v Diego Neves>Primeiro o cliente abre a solicitação de devolução no site e informa o número do pedido.</v>
+
+00:00:14.500 --> 00:00:21.000
+<v Diego Neves>Depois o sistema valida o prazo no ERP e gera a etiqueta de postagem.</v>
+
+00:00:21.500 --> 00:00:29.000
+<v Júlia Prado>Se o produto chegar avariado, o estoque abre um chamado para a transportadora. Se não, o produto volta para a prateleira.</v>
+
+00:00:29.500 --> 00:00:37.000
+<v Diego Neves>Em seguida o financeiro aprova o reembolso no Stripe em até sete dias.</v>
+
+00:00:37.500 --> 00:00:45.000
+<v Júlia Prado>O problema é que hoje a conferência do produto é feita na mão, numa planilha.</v>
+
+00:00:45.500 --> 00:00:52.000
+<v Diego Neves>Ficou combinado que vamos registrar a conferência direto no ERP pelo leitor de código de barras.</v>
+
+00:00:52.500 --> 00:00:58.000
+<v Júlia Prado>Eu vou enviar o manual da transportadora até quinta.</v>

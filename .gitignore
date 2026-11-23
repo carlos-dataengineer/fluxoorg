@@ -1,0 +1,15 @@
+.DS_Store
+Thumbs.db
+*.log
+.env
+.env.*
+!.env.example
+node_modules/
+dist/
+coverage/
+
+# specs temporárias com dados reais de reunião
+*.local.json
+privado/
+__pycache__/
+*.pyc

@@ -1,0 +1,235 @@
+<title>Fluxoorg</title>
+<style>
+:root{--bg:#faf9f5;--panel:#fff;--line:#e6e2d6;--ink:#26231f;--muted:#6f6a5e;--accent:#c2562f;--accent2:#a8461f;--blue:#2f66d8}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{font-family:Inter,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--ink);background:var(--bg);font-size:14px;overflow:hidden}
+button,select,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+#app{display:grid;grid-template-rows:52px 1fr;height:100%}
+#top{display:flex;align-items:center;gap:8px;padding:0 14px;background:var(--panel);border-bottom:1px solid var(--line);min-width:0}
+.brand{font-weight:700;letter-spacing:-.01em;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.brand i{width:22px;height:22px;border-radius:6px;background:var(--accent);display:inline-block;position:relative}
+.brand i:after{content:"";position:absolute;left:5px;top:5px;width:12px;height:12px;border:2px solid #fff;border-radius:3px;border-left-color:transparent}
+.spacer{flex:1}
+.btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 10px;white-space:nowrap}
+.btn:hover{background:#f3f1ea}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.btn.pri:hover{background:var(--accent2)}
+.btn.sm{padding:4px 8px;font-size:13px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+#flowSel{max-width:280px;border:1px solid var(--line);border-radius:8px;padding:6px 8px;background:#fff}
+#flowTitle{width:260px;border:1px solid transparent;border-radius:8px;padding:6px 8px;background:transparent;font-weight:600}
+#flowTitle:hover,#flowTitle:focus{border-color:var(--line);background:#fff;outline:none}
+#flowTitle:disabled{color:var(--ink);opacity:1}
+#main{display:flex;min-height:0}
+#side{width:392px;flex:none;background:var(--panel);border-right:1px solid var(--line);overflow:auto;padding:16px 16px 40px}
+#side.hide{display:none}
+#side h2{font-size:15px;margin:0 0 4px}
+#side p.hint{color:var(--muted);margin:0 0 10px;line-height:1.4}
+#side label{display:block;font-weight:600;font-size:12px;color:var(--muted);margin:12px 0 4px;text-transform:uppercase;letter-spacing:.04em}
+#side textarea,#side input[type=text],#side input[type=number],#side select{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:#fff}
+#side textarea{resize:vertical;min-height:210px;line-height:1.45;font-size:13px}
+#side .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+#side .row>*{flex:none}
+#txInfo{margin-top:6px;color:var(--muted);font-size:12px;min-height:16px}
+#side hr{border:0;border-top:1px solid var(--line);margin:16px 0}
+.step{display:inline-flex;width:20px;height:20px;border-radius:50%;background:var(--ink);color:#fff;font-size:12px;align-items:center;justify-content:center;margin-right:6px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opts label{margin-top:0}
+input[type=range]{width:100%}
+#jsonBox{display:none;margin-top:10px}
+#jsonBox textarea{min-height:130px}
+#canvas{position:relative;flex:1;min-width:0;overflow:hidden;background-color:#fbfaf6;background-image:radial-gradient(#d8d3c4 1.1px,transparent 1.2px);touch-action:none;cursor:default;user-select:none}
+#canvas.panning{cursor:grabbing}
+#canvas.arrowtool{cursor:crosshair}
+#world{position:absolute;left:0;top:0;transform-origin:0 0}
+.el{position:absolute}
+.cont{border:1.5px solid #d9d4c5;border-radius:18px;background:rgba(255,255,255,.55);pointer-events:none}
+.clabel{position:absolute;font-weight:600;font-size:15px;color:#6b665b;white-space:nowrap;cursor:grab;padding:2px 4px;border-radius:6px;height:26px;line-height:22px}
+.clabel:hover{background:rgba(0,0,0,.05)}
+.shape{border:1.5px solid;display:flex;align-items:center;justify-content:center;padding:8px 12px;font-size:15px;line-height:1.35;text-align:center;border-radius:14px;box-shadow:0 1px 0 rgba(0,0,0,.04)}
+.shape.k-rect{border-radius:3px}.shape.k-ellipse{border-radius:50%}.shape.k-pill{border-radius:999px}
+.shape .t{width:100%;position:relative;word-wrap:break-word;overflow-wrap:anywhere}
+.shape svg.bg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.shape.k-diamond,.shape.k-hexagon,.shape.k-parallelogram{border:0;background:transparent!important;box-shadow:none}
+.shape.k-diamond .t{padding:0 20%}.shape.k-hexagon .t,.shape.k-parallelogram .t{padding:0 10%}
+.t .ln{min-height:1em}
+.t ul,.t ol{margin:2px 0;padding-left:18px;text-align:left}.t li{margin:2px 0}
+.t code,.txt code{font-family:ui-monospace,Menlo,monospace;background:rgba(0,0,0,.07);border-radius:4px;padding:0 4px;font-size:.92em}
+.txt{line-height:1.3;white-space:normal}
+.txt.nw .ln{white-space:nowrap}
+.txt ul,.txt ol{margin:2px 0;padding-left:20px}
+.txt a{color:var(--blue)}
+.tbl{border-collapse:collapse;table-layout:fixed;background:#fff;font-size:14px;line-height:1.35}
+.tbl td{border:1px solid #e4dfd2;padding:8px 12px;vertical-align:top;overflow-wrap:anywhere}
+.tbl tr:first-child td{font-weight:700;background:#f4f1e8}
+.tbl td[contenteditable=true]{outline:2px solid var(--blue);background:#fff}
+.sel{outline:2px solid var(--blue);outline-offset:3px}
+.clabel.sel{outline-offset:0}
+.handle{position:absolute;background:#fff;border:2px solid var(--blue);border-radius:3px;cursor:nwse-resize;z-index:50}
+#arrows{position:absolute;left:0;top:0;width:1px;height:1px;overflow:visible;pointer-events:none;z-index:20}
+#arrows .hit{pointer-events:stroke;stroke:transparent;stroke-width:16;fill:none;cursor:pointer}
+.ui{position:absolute;z-index:100}
+#tb{left:50%;bottom:16px;transform:translateX(-50%);width:max-content;display:flex;align-items:center;gap:4px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:5px;box-shadow:0 6px 24px rgba(0,0,0,.1);max-width:calc(100% - 20px);flex-wrap:wrap;justify-content:center}
+#tb button{border:0;background:transparent;border-radius:8px;padding:7px 10px;white-space:nowrap}
+#tb button:hover{background:#f1eee5}
+#tb button.on{background:#ece8da;font-weight:600}
+#tb .sep{width:1px;height:22px;background:var(--line);margin:0 4px}
+.sw{width:20px;height:20px;border-radius:50%;border:1.5px solid rgba(0,0,0,.25)!important;padding:0!important;margin:0 2px}
+.sw.on{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--blue)}
+#zoomctl{right:16px;bottom:16px;display:flex;align-items:center;gap:2px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:3px}
+#zoomctl button{border:0;background:transparent;padding:5px 9px;border-radius:7px}
+#zoomctl button:hover{background:#f1eee5}
+#zoomctl span{min-width:44px;text-align:center;font-size:12px;color:var(--muted)}
+#banner{left:16px;top:14px;right:16px;display:none;align-items:center;gap:10px;background:#fff7e0;border:1px solid #ecd58f;border-radius:10px;padding:8px 12px;flex-wrap:wrap}
+#banner b{font-weight:600}
+.editor{border:2px solid var(--blue);border-radius:8px;padding:8px 10px;resize:both;background:#fff;font-size:15px;line-height:1.35;box-shadow:0 8px 28px rgba(0,0,0,.18);z-index:120}
+.einput{border:2px solid var(--blue);border-radius:8px;padding:5px 8px;background:#fff;z-index:120;width:180px}
+#toast{position:fixed;left:50%;top:64px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:9px 14px;border-radius:10px;z-index:400;opacity:0;pointer-events:none;transition:opacity .2s;max-width:80vw;text-align:center}
+#toast.on{opacity:1}
+.modalbg{position:fixed;inset:0;background:rgba(30,26,20,.35);z-index:300;display:flex;align-items:center;justify-content:center}
+.modal{background:#fff;border-radius:14px;padding:20px;max-width:440px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.modal h3{margin:0 0 8px}.modal p{margin:0 0 16px;color:var(--muted);line-height:1.45}
+.modal .row{display:flex;gap:8px;justify-content:flex-end}
+#meas{position:absolute;left:-9999px;top:0;visibility:hidden;height:auto!important}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:6px;font-size:12px;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;border:1px solid rgba(0,0,0,.2);vertical-align:-2px;margin-right:4px}
+.note{background:#f6f3ea;border-radius:10px;padding:10px 12px;color:var(--muted);line-height:1.45;font-size:12.5px;margin-top:12px}
+.ri{display:grid;grid-template-columns:128px 1fr;gap:4px 6px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px dashed var(--line)}
+.ri .rb{grid-column:1 / 3;display:flex;gap:4px;justify-content:flex-end}
+.ri select,.ri input{padding:5px 7px!important;font-size:13px}
+.rsec{display:flex;gap:6px;align-items:center;background:#f1eee5;border-radius:8px;padding:6px 8px;margin:14px 0 8px;font-weight:700}
+.rsec input{flex:1;font-weight:600!important}
+details summary{cursor:pointer;margin-bottom:4px}
+/* telas pequenas: cabeçalho rola sozinho e o painel vira gaveta sobre o quadro */
+@media (max-width:760px){
+  #top{overflow-x:auto;scrollbar-width:none}
+  #top::-webkit-scrollbar{display:none}
+  #flowSel{max-width:150px}#flowTitle{width:150px}
+  #main{position:relative}
+  #side{position:absolute;z-index:150;left:0;top:0;bottom:0;width:min(392px,100%);box-shadow:0 10px 40px rgba(0,0,0,.2)}
+  #tb{bottom:64px}
+  #zoomctl{right:10px;bottom:10px}
+}
+</style>
+<div id="app">
+  <header id="top">
+    <button class="btn sm" id="btnSide" title="Mostrar/ocultar painel">☰</button>
+    <div class="brand" title="Fluxoorg v@VERSION@ · transcrição de reunião vira fluxo"><i></i>Fluxoorg</div>
+    <select id="flowSel" title="Fluxos do projeto"></select>
+    <input id="flowTitle" title="Nome do fluxo">
+    <div class="spacer"></div>
+    <button class="btn sm" id="btnBlank">+ Em branco</button>
+    <button class="btn sm" id="btnDup">Duplicar</button>
+    <button class="btn sm" id="btnDel">Excluir</button>
+    <button class="btn sm" id="btnOpen">Abrir projeto</button>
+    <button class="btn sm" id="btnSaveJson">Salvar .json</button>
+    <button class="btn sm pri" id="btnSaveHtml">Salvar HTML</button>
+    <input type="file" id="fileProj" accept=".json,application/json" hidden>
+  </header>
+  <div id="main">
+    <aside id="side">
+      <h2>Criar fluxo a partir de uma transcrição</h2>
+      <p class="hint">Cole a transcrição da reunião (Teams, Meet, Zoom, .vtt, .srt ou texto), ajuste as opções e gere um fluxo editável. Cada fluxo novo vira uma aba nova: o que já está na ferramenta não é alterado.</p>
+
+      <label><span class="step">1</span>Transcrição</label>
+      <textarea id="tx" placeholder="Ex.:&#10;Marina: Primeiro o lead entra pelo site e cai no Salesforce.&#10;Rafael: Depois o SDR qualifica por telefone..."></textarea>
+      <div class="row" style="margin-top:8px">
+        <button class="btn sm" id="btnFile">Carregar arquivo</button>
+        <button class="btn sm" id="btnSample">Usar exemplo</button>
+        <button class="btn sm" id="btnClear">Limpar</button>
+        <input type="file" id="fileTx" accept=".txt,.vtt,.srt,.md,text/plain" hidden>
+      </div>
+      <div id="txInfo"></div>
+
+      <label><span class="step">2</span>Opções</label>
+      <input type="text" id="optTitle" placeholder="Título do fluxo (opcional)">
+      <div class="opts" style="margin-top:10px">
+        <div>
+          <label>Layout</label>
+          <select id="optLayout"><option value="linear">Linha do processo</option><option value="lanes">Raias por participante</option></select>
+        </div>
+        <div>
+          <label>Etapas por linha</label>
+          <input type="number" id="optPer" min="2" max="8" value="4">
+        </div>
+      </div>
+      <label>Nível de detalhe: <span id="detailVal">14</span> etapas no máximo</label>
+      <input type="range" id="optDetail" min="4" max="40" value="14">
+      <label>Sistemas e ferramentas (viram caixas azuis)</label>
+      <input type="text" id="optSys" value="HubSpot, Salesforce, Stripe, Databricks, WhatsApp, Teams, Slack, SAP, CRM, ERP, Power BI, API, site">
+      <div class="row" style="margin-top:10px">
+        <label style="margin:0;text-transform:none;font-size:13px;color:var(--ink);font-weight:500"><input type="checkbox" id="optPanels" checked> Incluir quadros de dores, decisões e pendências</label>
+      </div>
+
+      <label><span class="step">3</span>Gerar</label>
+      <div class="row">
+        <button class="btn pri" id="btnAnalyze">Analisar e revisar</button>
+        <button class="btn" id="btnGen">Gerar direto</button>
+      </div>
+      <div class="legend">
+        <span><i style="background:#D3E5FF"></i>sistema</span><span><i style="background:#FFDCC4"></i>dor ou lacuna</span><span><i style="background:#D2EDCB"></i>decisão</span><span><i style="background:#fff"></i>etapa ou pendência</span>
+      </div>
+
+      <div id="review" style="display:none">
+        <hr>
+        <label><span class="step">4</span>Revisar e ajustar</label>
+        <p class="hint">Troque a categoria, edite o texto, mova com ↑ ↓ e crie seções com §. Itens marcados "Ignorar" não entram no quadro.</p>
+        <div id="revList"></div>
+        <div class="row" style="margin-top:10px"><button class="btn pri" id="btnBuild">Montar fluxo no quadro</button><button class="btn" id="btnRevClose">Fechar</button></div>
+      </div>
+
+      <hr>
+      <details id="aiBox">
+        <summary><strong>Modo IA (opcional)</strong> · bem mais preciso</summary>
+        <p class="hint" style="margin-top:8px">Duas formas de usar o Claude para entender a reunião: enviar direto pela API (abaixo) ou copiar o prompt, rodar no Claude e colar o JSON de volta. Atenção: no envio direto a transcrição sai do seu computador para a API da Anthropic; use só se a política da empresa permitir. A chave fica apenas na memória desta página e não é salva.</p>
+        <label>Chave da API (sk-ant-…)</label>
+        <input type="password" id="aiKey" autocomplete="off" placeholder="sk-ant-...">
+        <label>Modelo</label>
+        <input type="text" id="aiModel" value="claude-sonnet-5-5">
+        <div class="row" style="margin-top:10px"><button class="btn pri" id="btnAI">Gerar com IA</button><button class="btn" id="btnPrompt">Copiar prompt</button></div>
+        <label>Colar JSON devolvido pelo Claude</label>
+        <textarea id="jsonIn" style="min-height:110px" placeholder='{"titulo":"…","fluxos":[…],"quadros":[…]}'></textarea>
+        <div class="row" style="margin-top:8px"><button class="btn" id="btnJsonGen">Gerar a partir do JSON</button></div>
+      </details>
+
+      <div class="note">
+        <b>Como funciona o modo local:</b> a ferramenta lê as falas, separa frases, descarta perguntas e conversa solta e classifica cada frase em etapa, sistema, decisão ◇ (com saídas sim/não), dor, decisão tomada, pendência, regra ou necessidade. Agrupa as etapas em seções por assunto, monta os quadros e a tabela de termos e códigos e conecta tudo. Você revisa antes de montar. Funciona sem internet e sem enviar nada a lugar nenhum.<br><br>
+        <b>Atalhos:</b> V selecionar · A seta · Del apagar · Ctrl+Z desfazer · Ctrl+scroll zoom · scroll move a tela · duplo clique edita o texto.<br><br>
+        <a href="https://github.com/carlos-dataengineer/fluxoorg" target="_blank" rel="noopener">Fluxoorg v@VERSION@</a> · código aberto (MIT)
+      </div>
+    </aside>
+    <section id="canvas">
+      <div id="world"></div>
+      <div id="banner" class="ui"></div>
+      <div id="tb" class="ui">
+        <button data-tool="select" class="on" title="Selecionar (V)">Selecionar</button>
+        <button id="tbShape" title="Adicionar etapa">+ Etapa</button>
+        <button id="tbText" title="Adicionar texto">+ Texto</button>
+        <button id="tbCont" title="Adicionar seção">+ Seção</button>
+        <button data-tool="arrow" title="Conectar duas caixas (A)">Seta</button>
+        <span class="sep"></span>
+        <span id="swatches" style="display:flex;align-items:center"></span>
+        <span class="sep"></span>
+        <button id="tbUndo" title="Desfazer (Ctrl+Z)">↶</button>
+        <button id="tbRedo" title="Refazer (Ctrl+Y)">↷</button>
+        <button id="tbDelete" title="Excluir seleção (Del)">Excluir</button>
+        <span class="sep"></span>
+        <button id="tbLock" title="Proteger ou liberar edição"></button>
+      </div>
+      <div id="zoomctl" class="ui"><button id="zOut">−</button><span id="zVal">100%</span><button id="zIn">+</button><button id="zFit" title="Ajustar à tela">Ajustar</button></div>
+    </section>
+  </div>
+</div>
+<div id="toast"></div>
+<div id="meas" class="shape"><div class="t"></div></div>
+<script type="application/json" id="seed">{"flows":[]}</script>
+<script type="application/json" id="spec"></script>
+<script type="application/json" id="demo">/*@DEMO*/</script>
+<script>
+/*@ENGINE*/
+</script>
+<script>
+/*@APP*/
+</script>
