@@ -4,3 +4,9 @@ updates:
     directory: /
     schedule:
       interval: monthly
+    ignore:
+      # ver comentário em .github/workflows/pages.yml
+      - dependency-name: "actions/deploy-pages"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "actions/upload-pages-artifact"
+        update-types: ["version-update:semver-major"]
