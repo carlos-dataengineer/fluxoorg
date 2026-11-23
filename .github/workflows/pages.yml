@@ -11,6 +11,7 @@ on:
 
 permissions:
   contents: read
+  actions: read  # deploy-pages v5 consulta o artefato pela API
   pages: write
   id-token: write
 
